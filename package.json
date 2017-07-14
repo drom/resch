@@ -1,0 +1,36 @@
+{
+  "name": "resch",
+  "version": "0.2.0",
+  "description": "Reactive JSON Schema form generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint *.js",
+    "start": "http-server build/",
+    "build": "browserify src/app.js -o build/bundle.js && cp ./node_modules/normalize.css/normalize.css build/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drom/resch.git"
+  },
+  "keywords": [
+    "react",
+    "json",
+    "schema",
+    "form"
+  ],
+  "author": "Aliaksei Chapyzhenka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/drom/resch/issues"
+  },
+  "homepage": "https://github.com/drom/resch#readme",
+  "devDependencies": {
+    "browserify": "^14.4.0",
+    "eslint": "^4.2.0",
+    "http-server": "^0.10.0",
+    "immutability-helper": "^2.3.0",
+    "normalize.css": "^7.0.0",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  }
+}

@@ -1,0 +1,8 @@
+.eslintrc
+.travis.yml
+appveyor.yml
+
+build/*.js
+build/*.css
+node_modules
+package-lock.json
