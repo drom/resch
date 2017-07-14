@@ -14,41 +14,41 @@ const React = require('react')
 const $ = React.createElement;
 
 const schema = {
-    type: 'object', title: 'o1',
+    type: 'object', title: 'Favorites',
     properties: {
         years: {
-            type: 'object', title: 'years',
+            type: 'object', title: 'Years',
             properties: {
                 from: {
-                    type: 'integer', title: 'from'
+                    type: 'integer', title: 'From'
                 },
                 to: {
-                    type: 'number', title: 'to'
+                    type: 'number', title: 'To'
                 }
             }
         },
         contry: {
-            type: 'string', title: 'contry'
+            type: 'string', title: 'Country'
         },
         bands: {
             type: 'array', title: 'The Bands',
             items: {
-                type: 'object', title: 'band data',
+                type: 'object', title: 'Band data',
                 properties: {
-                    name: { type: 'string', title: 'band name' },
+                    name: { type: 'string', title: 'Band name' },
                     members: {
-                        type: 'array', title: 'band members',
+                        type: 'array', title: 'Band members',
                         items: {
-                            type: 'object', title: 'band member',
+                            type: 'object', title: 'Band member',
                             properties: {
                                 first: {
-                                    type: 'string', title: 'first name'
+                                    type: 'string', title: 'First name'
                                 },
                                 last: {
-                                    type: 'string', title: 'last name'
+                                    type: 'string', title: 'Last name'
                                 },
                                 tools: {
-                                    type: 'array', title: 'tools',
+                                    type: 'array', title: 'Tools',
                                     items: {
                                         type: 'string', title: 'instrument'
                                     }

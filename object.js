@@ -38,7 +38,7 @@ module.exports = React => genForm => {
     };
 
     return config => {
-        const { title } = config;
+        const { schema } = config;
         const children = propReducer(config);
 
         return class O extends React.Component {
@@ -57,7 +57,7 @@ module.exports = React => genForm => {
             render () {
                 const data = this.props.data;
                 return (
-                    $('li', {}, title,
+                    $('li', {}, schema.title,
                         $('ul', {},
                             children.map((e, i) => $(e.fn, {
                                 key: i,
