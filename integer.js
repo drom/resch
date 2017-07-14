@@ -23,12 +23,15 @@ module.exports = React => () => config => {
     };
 
     const { schema, path, updateData } = config;
-    const body = { $set: '' };
-    const spec = path.reduceRight((p, k) => ({ [k]: p }), body);
 
-    function onChange (event) {
-        body.$set = parseInt(event.target.value, 10);
-        updateData(spec);
+    let onChange;
+    if (typeof updateData === 'function') {
+        const body = { $set: '' };
+        const spec = path.reduceRight((p, k) => ({ [k]: p }), body);
+        onChange = function (event) {
+            body.$set = parseInt(event.target.value, 10);
+            updateData(spec);
+        };
     }
 
     return function I (props) {

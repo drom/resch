@@ -30,12 +30,18 @@ module.exports = React => genForm => {
         return {
             get: function (index) {
                 if (arr[index] === undefined) {
-
                     const selfPath = path.concat([index]);
 
-                    const selfBody = { $splice: [[index, 1]] };
-                    const selfSpec = path.reduceRight(
-                        (prev, key) => ({ [key]: prev }), selfBody);
+                    let handleDelete;
+                    if (typeof updateData === 'function') {
+                        const selfBody = { $splice: [[index, 1]] };
+                        const selfSpec = path.reduceRight(
+                            (prev, key) => ({ [key]: prev }), selfBody);
+
+                        handleDelete = function () {
+                            updateData(selfSpec);
+                        };
+                    }
 
                     const Form = genForm({
                         schema: schema.items,
@@ -44,10 +50,6 @@ module.exports = React => genForm => {
                     });
 
                     arr[index] = function AI (props) {
-
-                        function handleDelete () {
-                            updateData(selfSpec);
-                        }
 
                         return $('span', {},
                             $('button', {
@@ -80,15 +82,17 @@ module.exports = React => genForm => {
     };
 
     return config => {
-        const { schema, path, updateData } = config;
-        const arrayBody = { $push: [getDefaults(schema.items)] };
-        const arraySpec = path.reduceRight(
-            (prev, key) => ({ [key]: prev }), arrayBody);
-
         const itemizer = genItemizer(config);
+        const { schema, path, updateData } = config;
 
-        function handleAdd () {
-            updateData(arraySpec);
+        let handleAdd;
+        if (typeof updateData === 'function') {
+            const arrayBody = { $push: [getDefaults(schema.items)] };
+            const arraySpec = path.reduceRight(
+                (prev, key) => ({ [key]: prev }), arrayBody);
+            handleAdd = function  () {
+                updateData(arraySpec);
+            };
         }
 
         return class A extends React.Component {

@@ -5,7 +5,7 @@ module.exports = React => genForm => {
     const $ = React.createElement;
 
     function propReducer (config) {
-        const { schema, path } = config;
+        const { schema, path, updateData } = config;
         const obj = schema.properties;
         const keys = Object.keys(obj);
         return keys.map(key => {
@@ -15,7 +15,7 @@ module.exports = React => genForm => {
                 fn: genForm({
                     schema: val,
                     path: path.concat([key]),
-                    updateData: config.updateData
+                    updateData: updateData
                 })
             };
         });
