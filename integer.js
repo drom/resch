@@ -6,8 +6,11 @@ module.exports = React => () => config => {
     const errors = data => {
         var errors = [];
 
-        if (typeof data !== 'number') {
-            errors.push('type');
+        if (
+            (typeof data !== 'number') ||
+            (data !== parseInt(data, 10))
+        ) {
+            errors.push('expected integer');
         }
 
         // TODO: check more
@@ -24,11 +27,11 @@ module.exports = React => () => config => {
     const spec = path.reduceRight((p, k) => ({ [k]: p }), body);
 
     function onChange (event) {
-        body.$set = Number(event.target.value);
+        body.$set = parseInt(event.target.value, 10);
         updateData(spec);
     }
 
-    return function N (props) {
+    return function I (props) {
         return (
             $('li', {}, schema.title,
                 $('input', {

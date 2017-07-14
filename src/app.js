@@ -6,6 +6,7 @@ const React = require('react')
     , reGenForm = require('../form')
     , reGenString = require('../string')
     , reGenNumber = require('../number')
+    , reGenInteger = require('../integer')
     , reGenObject = require('../object')
     , reGenArray = require('../array')
     ;
@@ -19,7 +20,7 @@ const schema = {
             type: 'object', title: 'years',
             properties: {
                 from: {
-                    type: 'number', title: 'from'
+                    type: 'integer', title: 'from'
                 },
                 to: {
                     type: 'number', title: 'to'
@@ -84,6 +85,7 @@ const genForm = reGenForm(React)({
     array: reGenArray,
     string: reGenString,
     number: reGenNumber,
+    integer: reGenInteger,
     object: reGenObject
 });
 
