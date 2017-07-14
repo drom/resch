@@ -23,7 +23,7 @@ const schema = {
                     type: 'integer', title: 'From'
                 },
                 to: {
-                    type: 'number', title: 'To'
+                    type: 'integer', title: 'To'
                 }
             }
         },
