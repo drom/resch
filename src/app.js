@@ -5,6 +5,7 @@ const React = require('react')
     , update = require('immutability-helper')
     , reGenForm = require('../form')
     , reGenString = require('../string')
+    , reGenNumber = require('../number')
     , reGenObject = require('../object')
     , reGenArray = require('../array')
     ;
@@ -18,10 +19,10 @@ const schema = {
             type: 'object', title: 'years',
             properties: {
                 from: {
-                    type: 'string', title: 'from'
+                    type: 'number', title: 'from'
                 },
                 to: {
-                    type: 'string', title: 'to'
+                    type: 'number', title: 'to'
                 }
             }
         },
@@ -82,6 +83,7 @@ const data = {
 const genForm = reGenForm(React)({
     array: reGenArray,
     string: reGenString,
+    number: reGenNumber,
     object: reGenObject
 });
 
