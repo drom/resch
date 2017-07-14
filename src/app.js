@@ -42,7 +42,9 @@ const schema = {
                             type: 'object', title: 'Band member',
                             properties: {
                                 first: {
-                                    type: 'string', title: 'First name'
+                                    type: 'string',
+                                    title: 'First name',
+                                    pattern: '^[a-zA-Z]+$'
                                 },
                                 last: {
                                     type: 'string', title: 'Last name'

@@ -10,6 +10,13 @@ module.exports = React => () => config => {
             errors.push('type');
         }
 
+        if (
+            (typeof config.schema.pattern === 'string') &&
+            (data.match(config.schema.pattern) === null)
+        ) {
+            errors.push('pattern missmatch');
+        }
+
         // TODO: check more
 
         if (errors.length === 0) { return null; }
