@@ -1,3 +1,5 @@
+.nyc_output
+coverage
 build/*.js
 build/*.css
 node_modules

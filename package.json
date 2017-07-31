@@ -4,7 +4,7 @@
   "description": "Reactive JSON Schema form generator",
   "main": "index.js",
   "scripts": {
-    "test": "eslint *.js && mocha test",
+    "test": "eslint *.js && nyc mocha test",
     "start": "http-server build/",
     "build": "browserify src/app.js -o build/bundle.js && cp ./node_modules/normalize.css/normalize.css build/"
   },
@@ -32,6 +32,7 @@
     "immutability-helper": "^2.3.0",
     "mocha": "^3.5.0",
     "normalize.css": "^7.0.0",
+    "nyc": "^11.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
   }
