@@ -5,7 +5,10 @@ module.exports = React => genForm => {
     const $ = React.createElement;
 
     function propReducer (config) {
-        const { schema, path, updateData } = config;
+        const schema = config.schema
+            , path = config.path
+            , updateData = config.updateData;
+
         const obj = schema.properties;
         const keys = Object.keys(obj);
         return keys.map(key => {
@@ -38,7 +41,8 @@ module.exports = React => genForm => {
     };
 
     return config => {
-        const { schema } = config;
+        const schema = config.schema;
+
         const children = propReducer(config);
 
         return class O extends React.Component {

@@ -24,7 +24,10 @@ module.exports = React => genForm => {
     const $ = React.createElement;
 
     function genItemizer (config) {
-        const { schema, path, updateData } = config;
+        const schema = config.schema
+            , path = config.path
+            , updateData = config.updateData;
+
         let arr = [];
 
         return {
@@ -83,7 +86,10 @@ module.exports = React => genForm => {
 
     return config => {
         const itemizer = genItemizer(config);
-        const { schema, path, updateData } = config;
+        const schema = config.schema
+            , path = config.path
+            , updateData = config.updateData;
+
 
         let handleAdd;
         if (typeof updateData === 'function') {

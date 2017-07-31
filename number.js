@@ -19,7 +19,9 @@ module.exports = React => () => config => {
         }, 'E: ', errors.join(', '));
     };
 
-    const { schema, path, updateData } = config;
+    const schema = config.schema
+        , path = config.path
+        , updateData = config.updateData;
 
     let onChange;
     if (typeof updateData === 'function') {

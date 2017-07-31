@@ -12,12 +12,16 @@ module.exports = React => des => {
     const comps = bb(des, React, genForm);
 
     function genForm (config) {
-        const { schema } = config;
-        const { type, widget } = schema;
+        const schema = config.schema
+            , path = config.path;
+
+        const type = schema.type
+            , widget = schema.widget;
+
         if (typeof type !== 'string') {
             throw new Error(
                 'Unxpected type: `' + (typeof type) + '`' +
-                ' of node: ' + JSON.stringify(config.path)
+                ' of node: ' + JSON.stringify(path)
             );
         }
         const key = type + (widget ? ('_' + widget) : '');
@@ -25,7 +29,7 @@ module.exports = React => des => {
         if (typeof fn !== 'function') {
             throw new Error(
                 'Unexpected type: `' + key + '`' +
-                ' of node: ' + JSON.stringify(config.path)
+                ' of node: ' + JSON.stringify(path)
             );
         }
         return fn(config);
