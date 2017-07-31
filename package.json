@@ -1,6 +1,6 @@
 {
   "name": "resch",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Reactive JSON Schema form generator",
   "main": "index.js",
   "scripts": {
