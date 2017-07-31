@@ -14,4 +14,4 @@ install:
   - npm --version
   - npm install
 script: npm test
-after_success: npm run coverage
+after_success: npm run coveralls
