@@ -7,5 +7,6 @@ coverage
 build/*.js
 build/*.css
 node_modules
+npm-debug.log
 package-lock.json
 test
