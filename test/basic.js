@@ -5,6 +5,7 @@ const React = require('react')
     , update = require('immutability-helper')
     , chai = require('chai')
     , reGenForm = require('../form')
+    , reGenNull = require('../null')
     , reGenString = require('../string')
     , reGenNumber = require('../number')
     , reGenInteger = require('../integer')
@@ -24,6 +25,7 @@ describe('basic', function () {
         string: reGenString,
         number: reGenNumber,
         integer: reGenInteger,
+        null: reGenNull,
         object: reGenObject
     });
 

@@ -4,6 +4,7 @@ const React = require('react')
     , ReactDOM = require('react-dom')
     , update = require('immutability-helper')
     , reGenForm = require('../form')
+    , reGenNull = require('../null')
     , reGenString = require('../string')
     , reGenNumber = require('../number')
     , reGenInteger = require('../integer')
@@ -20,6 +21,7 @@ const genForm = reGenForm(React)({
     string: reGenString,
     number: reGenNumber,
     integer: reGenInteger,
+    null: reGenNull,
     object: reGenObject
 });
 
