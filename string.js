@@ -3,18 +3,36 @@
 module.exports = React => () => config => {
 
     const $ = React.createElement;
+
+    const schema = config.schema
+        , path = config.path
+        , updateData = config.updateData;
+
     const errors = data => {
-        var errors = [];
+        let errors = [];
 
         if (typeof data !== 'string') {
             errors.push('type');
-        }
+        } else {
+            if (
+                (typeof schema.minLength === 'number') &&
+                (data.length < schema.minLength)
+            ) {
+                errors.push('too short');
+            }
 
-        if (
-            (typeof config.schema.pattern === 'string') &&
-            (data.match(config.schema.pattern) === null)
-        ) {
-            errors.push('pattern missmatch');
+            if (
+                (typeof schema.maxLength === 'number') &&
+                (data.length > schema.maxLength)
+            ) {
+                errors.push('too long');
+            }
+            if (
+                (typeof schema.pattern === 'string') &&
+                (data.match(schema.pattern) === null)
+            ) {
+                errors.push('pattern missmatch');
+            }
         }
 
         // TODO: check more
@@ -25,10 +43,6 @@ module.exports = React => () => config => {
             style: {color: 'red'}
         }, 'E: ', errors.join(', '));
     };
-
-    const schema = config.schema
-        , path = config.path
-        , updateData = config.updateData;
 
     let onChange;
     if (typeof updateData === 'function') {

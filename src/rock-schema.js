@@ -22,15 +22,17 @@ module.exports = {
             items: {
                 type: 'object', title: 'Band data',
                 properties: {
-                    name: { type: 'string', title: 'Band name' },
+                    name: {
+                        type: 'string', title: 'Band name',
+                        minLength: 2, maxLength: 42
+                    },
                     members: {
                         type: 'array', title: 'Band members',
                         items: {
                             type: 'object', title: 'Band member',
                             properties: {
                                 first: {
-                                    type: 'string',
-                                    title: 'First name',
+                                    type: 'string', title: 'First name',
                                     pattern: '^[a-zA-Z]+$'
                                 },
                                 last: {
