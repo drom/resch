@@ -11,9 +11,9 @@ module.exports = {
             name: 'The Beatles',
             members: [
                 { first: 'John', last: 'Lennon', tools: ['Rhythm guitar'] },
-                { first: 'Paul', last: 'McCartney', tools: ['Bass', 'Piano'] },
-                { first: 'George', last: 'Harrison', tools: ['Lead guitar'] },
-                { first: 'Ringo', last: 'Starr', tools: ['Drums'] }
+                { first: 'Paul', last: 'McCartney', tools: ['Bass', 'Piano'], alive: true },
+                { first: 'George', last: 'Harrison', tools: ['Lead guitar'], alive: false },
+                { first: 'Ringo', last: 'Starr', tools: ['Drums'], alive: true }
             ]
         }
     ]

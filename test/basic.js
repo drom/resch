@@ -8,6 +8,7 @@ const React = require('react')
     , reGenNull = require('../null')
     , reGenString = require('../string')
     , reGenNumber = require('../number')
+    , reGenBoolean = require('../boolean')
     , reGenInteger = require('../integer')
     , reGenObject = require('../object')
     , reGenArray = require('../array')
@@ -24,6 +25,7 @@ describe('basic', function () {
         array: reGenArray,
         string: reGenString,
         number: reGenNumber,
+        boolean: reGenBoolean,
         integer: reGenInteger,
         null: reGenNull,
         object: reGenObject

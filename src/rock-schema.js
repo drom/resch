@@ -41,6 +41,9 @@ module.exports = {
                                     items: {
                                         type: 'string', title: 'instrument'
                                     }
+                                },
+                                alive: {
+                                    type: 'boolean', title: 'alive'
                                 }
                             }
                         }
