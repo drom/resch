@@ -1,6 +1,8 @@
-.eslintrc
+.eslintrc.js
 .travis.yml
 appveyor.yml
+build
+src
 
 .nyc_output
 coverage
