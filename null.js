@@ -1,33 +1,28 @@
 'use strict';
 
-module.exports = React => () => config => {
+const validateReSchemaErrors = require('./lib/gen-errors');
 
-    const $ = React.createElement;
-
-    const errors = data => {
-        var errors = [];
-
+const reSchemaErrors = validateReSchemaErrors(
+    () => data => {
         if (data !== null) {
-            errors.push('type');
+            return [`Invalid type: ${typeof data} (expected null)`];
         }
+        return [];
+    }
+);
 
-        // TODO: check more
-
-        if (errors.length === 0) { return null; }
-
-        return $('span', {
-            style: {color: 'red'}
-        }, 'E: ', errors.join(', '));
+module.exports = React => {
+    const $ = React.createElement;
+    const schemaErrors = reSchemaErrors(React);
+    return () => config => {
+        const schema = config.schema;
+        const Errors = schemaErrors(schema);
+        return function Nul (props) {
+            return (
+                $('li', {}, schema.title,
+                    $(Errors, props)
+                )
+            );
+        };
     };
-
-    const schema = config.schema;
-
-    return function NULL (props) {
-        return (
-            $('li', {}, schema.title,
-                errors(props.data)
-            )
-        );
-    };
-
 };

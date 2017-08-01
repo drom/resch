@@ -1,77 +1,74 @@
 'use strict';
 
-module.exports = React => genForm => {
+const validateReSchemaErrors = require('./lib/gen-errors');
 
-    const $ = React.createElement;
-
-    function propReducer (config) {
-        const schema = config.schema
-            , path = config.path
-            , updateData = config.updateData;
-
-        const obj = schema.properties;
-        const keys = Object.keys(obj);
-        return keys.map(key => {
-            var val = obj[key];
-            return {
-                name: key,
-                fn: genForm({
-                    schema: val,
-                    path: path.concat([key]),
-                    updateData: updateData
-                })
-            };
-        });
-    }
-
-    const errors = data => {
-        var errors = [];
-
+const reSchemaErrors = validateReSchemaErrors(
+    () => data => {
         if (typeof data !== 'object') {
-            errors.push('type');
+            return [`Invalid type: ${typeof data} (expected object)`];
+        }
+        return [];
+    }
+);
+
+module.exports = React => {
+    const $ = React.createElement;
+    const schemaErrors = reSchemaErrors(React);
+    return genForm => {
+
+        function propReducer (config) {
+            const schema = config.schema
+                , path = config.path
+                , updateData = config.updateData;
+
+            const obj = schema.properties;
+            const keys = Object.keys(obj);
+            return keys.map(key => {
+                var val = obj[key];
+                return {
+                    name: key,
+                    fn: genForm({
+                        schema: val,
+                        path: path.concat([key]),
+                        updateData: updateData
+                    })
+                };
+            });
         }
 
-        // TODO: check more
+        return config => {
+            const schema = config.schema;
+            const Errors = schemaErrors(schema);
+            const children = propReducer(config);
 
-        if (errors.length === 0) { return null; }
+            return class Obj extends React.Component {
 
-        return $('span', {
-            style: {color: 'red'}
-        }, 'E: ', errors.join(', '));
-    };
-
-    return config => {
-        const schema = config.schema;
-
-        const children = propReducer(config);
-
-        return class O extends React.Component {
-
-            constructor (props) {
-                super(props);
-            }
-
-            shouldComponentUpdate (nextProps) {
-                if (this.props.data === nextProps.data) {
-                    return false;
+                constructor (props) {
+                    super(props);
                 }
-                return true;
-            }
 
-            render () {
-                const data = this.props.data;
-                return (
-                    $('li', {}, schema.title,
-                        $('ul', {},
-                            children.map((e, i) => $(e.fn, {
-                                key: i,
-                                data: data[e.name]
-                            }))
-                        ),
-                        errors(data)
-                    )
-                );
-            }
+                shouldComponentUpdate (nextProps) {
+                    if (this.props.data === nextProps.data) {
+                        return false;
+                    }
+                    return true;
+                }
+
+                render () {
+                    const data = this.props.data;
+                    return (
+                        $('li', {}, schema.title,
+                            $('ul', {},
+                                children.map((e, i) => $(e.fn, {
+                                    key: i,
+                                    data: data[e.name]
+                                }))
+                            ),
+                            $(Errors, this.props)
+                        )
+                    );
+                }
+            };
         };
     };
 };

@@ -1,5 +1,16 @@
 'use strict';
 
+const validateReSchemaErrors = require('./lib/gen-errors');
+
+const reSchemaErrors = validateReSchemaErrors(
+    () => data => {
+        if (!Array.isArray(data)) {
+            return [`Invalid type: ${typeof data} (expected array)`];
+        }
+        return [];
+    }
+);
+
 function getDefaults (schema) {
     if (schema.type === 'string') {
         // TODO check for default, minLength, pattern?
@@ -19,120 +30,106 @@ function getDefaults (schema) {
     return null;
 }
 
-module.exports = React => genForm => {
-
+module.exports = React => {
     const $ = React.createElement;
+    const schemaErrors = reSchemaErrors(React);
+    return genForm => {
 
-    function genItemizer (config) {
-        const schema = config.schema
-            , path = config.path
-            , updateData = config.updateData;
+        function genItemizer (config) {
+            const schema = config.schema
+                , path = config.path
+                , updateData = config.updateData;
 
-        let arr = [];
+            let arr = [];
 
-        return {
-            get: function (index) {
-                if (arr[index] === undefined) {
-                    const selfPath = path.concat([index]);
+            return {
+                get: function (index) {
+                    if (arr[index] === undefined) {
+                        const selfPath = path.concat([index]);
 
-                    let handleDelete;
-                    if (typeof updateData === 'function') {
-                        const selfBody = { $splice: [[index, 1]] };
-                        const selfSpec = path.reduceRight(
-                            (prev, key) => ({ [key]: prev }), selfBody);
+                        let handleDelete;
+                        if (typeof updateData === 'function') {
+                            const selfBody = { $splice: [[index, 1]] };
+                            const selfSpec = path.reduceRight(
+                                (prev, key) => ({ [key]: prev }), selfBody);
 
-                        handleDelete = function () {
-                            updateData(selfSpec);
+                            handleDelete = function () {
+                                updateData(selfSpec);
+                            };
+                        }
+
+                        const Form = genForm({
+                            schema: schema.items,
+                            path: selfPath,
+                            updateData: updateData
+                        });
+
+                        arr[index] = function Ari (props) {
+
+                            return $('span', {},
+                                $('button', {
+                                    type: 'button',
+                                    onClick: handleDelete
+                                }, '-'),
+                                $(Form, props)
+                            );
                         };
                     }
-
-                    const Form = genForm({
-                        schema: schema.items,
-                        path: selfPath,
-                        updateData: updateData
-                    });
-
-                    arr[index] = function AI (props) {
-
-                        return $('span', {},
-                            $('button', {
-                                type: 'button',
-                                onClick: handleDelete
-                            }, '-'),
-                            $(Form, props)
-                        );
-                    };
+                    return arr[index];
                 }
-                return arr[index];
-            }
-        };
-    }
-
-    const errors = data => {
-        var errors = [];
-
-        if (!Array.isArray(data)) {
-            errors.push('type');
-        } else {
-            // TODO: check more
-        }
-
-        if (errors.length === 0) { return null; }
-
-        return $('span', {
-            style: {color: 'red'}
-        }, 'E: ', errors.join(', '));
-    };
-
-    return config => {
-        const itemizer = genItemizer(config);
-        const schema = config.schema
-            , path = config.path
-            , updateData = config.updateData;
-
-
-        let handleAdd;
-        if (typeof updateData === 'function') {
-            const arrayBody = { $push: [getDefaults(schema.items)] };
-            const arraySpec = path.reduceRight(
-                (prev, key) => ({ [key]: prev }), arrayBody);
-            handleAdd = function  () {
-                updateData(arraySpec);
             };
         }
 
-        return class A extends React.Component {
+        return config => {
+            const itemizer = genItemizer(config);
+            const schema = config.schema
+                , path = config.path
+                , updateData = config.updateData;
+            const Errors = schemaErrors(schema);
 
-            constructor (props) {
-                super(props);
+            let handleAdd;
+            if (typeof updateData === 'function') {
+                const arrayBody = { $push: [getDefaults(schema.items)] };
+                const arraySpec = path.reduceRight(
+                    (prev, key) => ({ [key]: prev }), arrayBody);
+                handleAdd = function  () {
+                    updateData(arraySpec);
+                };
             }
 
-            shouldComponentUpdate (nextProps) {
-                if (this.props.data === nextProps.data) {
-                    return false;
+            return class Arr extends React.Component {
+
+                constructor (props) {
+                    super(props);
                 }
-                return true;
-            }
 
-            render () {
-                const data = this.props.data;
-                return (
-                    $('li', {},
-                        $('button', {
-                            type: 'button',
-                            onClick: handleAdd
-                        }, '+'),
-                        schema.title,
-                        $('ol', { start: 0 },
-                            data.map((e, i) => $(itemizer.get(i), {
-                                key: i,
-                                data: e
-                            }))
-                        ),
-                        errors(data)
-                    )
-                );
-            }
+                shouldComponentUpdate (nextProps) {
+                    if (this.props.data === nextProps.data) {
+                        return false;
+                    }
+                    return true;
+                }
+
+                render () {
+                    const data = this.props.data;
+                    return (
+                        $('li', {},
+                            $('button', {
+                                type: 'button',
+                                onClick: handleAdd
+                            }, '+'),
+                            schema.title,
+                            $('ol', { start: 0 },
+                                data.map((e, i) => $(itemizer.get(i), {
+                                    key: i,
+                                    data: e
+                                }))
+                            ),
+                            $(Errors, this.props)
+                        )
+                    );
+                }
+            };
         };
     };
 };
