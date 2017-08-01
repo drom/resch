@@ -1,16 +1,22 @@
 'use strict';
 
 module.exports = {
-    type: 'object', title: 'Favorites',
+    type: 'object', title: 'Rock',
     properties: {
         years: {
             type: 'object', title: 'Years',
             properties: {
                 from: {
-                    type: 'integer', title: 'From'
+                    type: 'integer', title: 'From',
+                    minimum: 1900,
+                    maximum: 2020,
+                    exclusiveMaximum: true
                 },
                 to: {
-                    type: 'number', title: 'To'
+                    type: 'number', title: 'To',
+                    minimum: 1900,
+                    exclusiveMinimum: true,
+                    maximum: 2020,
                 }
             }
         },
