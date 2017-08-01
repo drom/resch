@@ -18,6 +18,10 @@ module.exports = React => des => {
         const type = schema.type
             , widget = schema.widget;
 
+        if (schema.enum !== undefined) {
+            return comps.enum(config);
+        }
+
         if (typeof type !== 'string') {
             throw new Error(
                 'Unxpected type: `' + (typeof type) + '`' +

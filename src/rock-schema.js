@@ -52,6 +52,9 @@ module.exports = {
                                 },
                                 alive: {
                                     type: 'boolean', title: 'alive'
+                                },
+                                gender: {
+                                    enum: ['M', 'F'], title: 'gender'
                                 }
                             }
                         }

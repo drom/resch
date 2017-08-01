@@ -12,6 +12,7 @@ const React = require('react')
     , reGenInteger = require('../integer')
     , reGenObject = require('../object')
     , reGenArray = require('../array')
+    , reGenEnum = require('../enum')
     , rockSchema = require('../src/rock-schema')
     , rockData = require('../src/rock-data')
     ;
@@ -22,6 +23,7 @@ describe('basic', function () {
     const $ = React.createElement;
 
     const genForm = reGenForm(React)({
+        enum: reGenEnum,
         array: reGenArray,
         string: reGenString,
         number: reGenNumber,
