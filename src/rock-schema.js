@@ -10,12 +10,12 @@ module.exports = {
                     type: 'integer', title: 'From'
                 },
                 to: {
-                    type: 'integer', title: 'To'
+                    type: 'number', title: 'To'
                 }
             }
         },
         contry: {
-            type: 'string', title: 'Country'
+            type: 'null', title: 'Country'
         },
         bands: {
             type: 'array', title: 'The Bands',
