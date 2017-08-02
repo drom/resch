@@ -18,23 +18,28 @@ module.exports = React => des => {
         const type = schema.type
             , widget = schema.widget;
 
-        if (schema.enum !== undefined) {
-            return comps.enum(config);
-        }
+        let fn;
+        if (schema.allOf !== undefined) { fn = comps.allOf; } else
+        if (schema.anyOf !== undefined) { fn = comps.anyOf; } else
+        if (schema.oneOf !== undefined) { fn = comps.oneOf; } else
 
-        if (typeof type !== 'string') {
-            throw new Error(
-                'Unxpected type: `' + (typeof type) + '`' +
-                ' of node: ' + JSON.stringify(path)
-            );
-        }
-        const key = type + (widget ? ('_' + widget) : '');
-        const fn = comps[key];
-        if (typeof fn !== 'function') {
-            throw new Error(
-                'Unexpected type: `' + key + '`' +
-                ' of node: ' + JSON.stringify(path)
-            );
+        if (schema.enum !== undefined) {
+            fn = comps.enum;
+        } else {
+            if (typeof type !== 'string') {
+                throw new Error(
+                    'Unxpected type: `' + (typeof type) + '`' +
+                    ' of node: ' + JSON.stringify(path)
+                );
+            }
+            const key = type + (widget ? ('_' + widget) : '');
+            fn = comps[key];
+            if (typeof fn !== 'function') {
+                throw new Error(
+                    'Unexpected type: `' + key + '`' +
+                    ' of node: ' + JSON.stringify(path)
+                );
+            }
         }
         return fn(config);
     }
