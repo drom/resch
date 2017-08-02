@@ -50,7 +50,7 @@ module.exports = React => {
                 }
 
                 render () {
-                    const data = this.props.data;
+                    const data = this.props.data || {};
                     return (
                         $('li', {}, schema.title,
                             $('ul', {},
