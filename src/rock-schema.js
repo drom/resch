@@ -72,6 +72,7 @@ module.exports = {
         artist: {
             type: 'array', title: 'Artist',
             items: {
+                type: 'object',
                 oneOf: [person, group]
             }
         }

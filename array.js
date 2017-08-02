@@ -7,9 +7,12 @@ const validateReSchemaErrors = require('./lib/gen-errors')
 const reSchemaErrors = validateReSchemaErrors(validateArray);
 
 function getDefaults (schema) {
-    if (schema.enum !== undefined) {
-        return schema.enum[0];
-    }
+    if (schema.allOf !== undefined) { return ''; }
+    if (schema.anyOf !== undefined) { return ''; }
+    if (schema.oneOf !== undefined) { return ''; }
+
+    if (schema.enum !== undefined) { return schema.enum[0]; }
+
     if (schema.type === 'string') {
         // TODO check for default, minLength, pattern?
         return '';
