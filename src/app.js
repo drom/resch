@@ -4,14 +4,19 @@ const React = require('react')
     , ReactDOM = require('react-dom')
     , update = require('immutability-helper')
     , reGenForm = require('../form')
-    , reGenNull = require('../null')
-    , reGenString = require('../string')
-    , reGenNumber = require('../number')
-    , reGenBoolean = require('../boolean')
-    , reGenInteger = require('../integer')
-    , reGenObject = require('../object')
+
     , reGenArray = require('../array')
+    , reGenAllOf = require('../all-of')
+    , reGenAnyOf = require('../any-of')
+    , reGenBoolean = require('../boolean')
     , reGenEnum = require('../enum')
+    , reGenInteger = require('../integer')
+    , reGenNull = require('../null')
+    , reGenNumber = require('../number')
+    , reGenObject = require('../object')
+    , reGenOneOf = require('../one-of')
+    , reGenString = require('../string')
+
     , rockSchema = require('./rock-schema')
     , rockData = require('./rock-data')
     ;
@@ -19,14 +24,17 @@ const React = require('react')
 const $ = React.createElement;
 
 const genForm = reGenForm(React)({
-    enum: reGenEnum,
     array: reGenArray,
-    string: reGenString,
-    number: reGenNumber,
+    allOf: reGenAllOf,
+    anyOf: reGenAnyOf,
     boolean: reGenBoolean,
+    enum: reGenEnum,
     integer: reGenInteger,
     null: reGenNull,
-    object: reGenObject
+    number: reGenNumber,
+    object: reGenObject,
+    oneOf: reGenOneOf,
+    string: reGenString
 });
 
 class App extends React.Component {

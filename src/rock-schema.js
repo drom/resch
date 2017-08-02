@@ -1,5 +1,51 @@
 'use strict';
 
+const person = {
+    type: 'object', title: 'Person',
+    properties: {
+        name: {
+            type: 'string', title: 'Real name'
+        }
+    }
+};
+
+const group = {
+    type: 'object', title: 'Group',
+    properties: {
+        name: {
+            type: 'string', title: 'Group name',
+            minLength: 2, maxLength: 42
+        },
+        members: {
+            type: 'array', title: 'Band members',
+            items: {
+                type: 'object', title: 'Band member',
+                properties: {
+                    first: {
+                        type: 'string', title: 'First name',
+                        pattern: '^[a-zA-Z]+$'
+                    },
+                    last: {
+                        type: 'string', title: 'Last name'
+                    },
+                    tools: {
+                        type: 'array', title: 'Tools',
+                        items: {
+                            type: 'string', title: 'instrument'
+                        }
+                    },
+                    alive: {
+                        type: 'boolean', title: 'alive'
+                    },
+                    gender: {
+                        enum: ['M', 'F'], title: 'gender'
+                    }
+                }
+            }
+        }
+    }
+};
+
 module.exports = {
     type: 'object', title: 'Rock',
     properties: {
@@ -23,43 +69,10 @@ module.exports = {
         contry: {
             type: 'null', title: 'Country'
         },
-        bands: {
-            type: 'array', title: 'The Bands',
+        artist: {
+            type: 'array', title: 'Artist',
             items: {
-                type: 'object', title: 'Band data',
-                properties: {
-                    name: {
-                        type: 'string', title: 'Band name',
-                        minLength: 2, maxLength: 42
-                    },
-                    members: {
-                        type: 'array', title: 'Band members',
-                        items: {
-                            type: 'object', title: 'Band member',
-                            properties: {
-                                first: {
-                                    type: 'string', title: 'First name',
-                                    pattern: '^[a-zA-Z]+$'
-                                },
-                                last: {
-                                    type: 'string', title: 'Last name'
-                                },
-                                tools: {
-                                    type: 'array', title: 'Tools',
-                                    items: {
-                                        type: 'string', title: 'instrument'
-                                    }
-                                },
-                                alive: {
-                                    type: 'boolean', title: 'alive'
-                                },
-                                gender: {
-                                    enum: ['M', 'F'], title: 'gender'
-                                }
-                            }
-                        }
-                    }
-                }
+                oneOf: [person, group]
             }
         }
     }

@@ -6,7 +6,7 @@ module.exports = {
         to: 1971
     },
     contry: 'UK',
-    bands: [
+    artist: [
         {
             name: 'The Beatles',
             members: [
