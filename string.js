@@ -1,19 +1,16 @@
 'use strict';
 
-const validateString = require('./lib/validate-string')
-    , validateReSchemaErrors = require('./lib/gen-errors')
+const reGenLiInput = require('./lib/li-input')
+    , validateString = require('./lib/validate-string')
     ;
-
-const reSchemaErrors = validateReSchemaErrors(validateString);
 
 module.exports = React => {
     const $ = React.createElement;
-    const schemaErrors = reSchemaErrors(React);
+    const genLiInput = reGenLiInput(React);
     return () => config => {
         const schema = config.schema
             , path = config.path
             , updateData = config.updateData;
-        const Errors = schemaErrors(schema);
 
         let onChange;
         if (typeof updateData === 'function') {
@@ -25,16 +22,15 @@ module.exports = React => {
             };
         }
 
-        return function S (props) {
-            return (
-                $('li', {}, schema.title,
-                    $('input', {
-                        value: props.data,
-                        onChange: onChange
-                    }),
-                    $(Errors, props)
-                )
-            );
+        const LiInput = genLiInput({
+            schema: schema,
+            itype: 'text',
+            onChange: onChange,
+            validate: validateString
+        });
+
+        return function Str (props) {
+            return $(LiInput, props);
         };
     };
 };

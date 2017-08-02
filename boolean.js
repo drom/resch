@@ -1,24 +1,21 @@
 'use strict';
 
-const validateReSchemaErrors = require('./lib/gen-errors');
+const reGenLiInput = require('./lib/li-input');
 
-const reSchemaErrors = validateReSchemaErrors(
-    () => data => {
-        if (typeof data !== 'boolean') {
-            return [`Invalid type: ${typeof data} (expected boolean)`];
-        }
-        return [];
+const validate = () => data => {
+    if (typeof data !== 'boolean') {
+        return [`Invalid type: ${typeof data} (expected boolean)`];
     }
-);
+    return [];
+};
 
 module.exports = React => {
     const $ = React.createElement;
-    const schemaErrors = reSchemaErrors(React);
+    const genLiInput = reGenLiInput(React);
     return () => config => {
         const schema = config.schema
             , path = config.path
             , updateData = config.updateData;
-        const Errors = schemaErrors(schema);
 
         let onChange;
         if (typeof updateData === 'function') {
@@ -29,18 +26,15 @@ module.exports = React => {
                 updateData(spec);
             };
         }
+        const LiInput = genLiInput({
+            schema: schema,
+            itype: 'checkbox',
+            onChange: onChange,
+            validate: validate
+        });
 
         return function Bul (props) {
-            return (
-                $('li', {}, schema.title,
-                    $('input', {
-                        type: 'checkbox',
-                        checked: props.data,
-                        onChange: onChange
-                    }),
-                    $(Errors, props)
-                )
-            );
+            return $(LiInput, props);
         };
     };
 };
