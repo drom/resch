@@ -1,13 +1,8 @@
 'use strict';
 
-const reGenLiInput = require('./lib/li-input');
-
-const validate = () => data => {
-    if (typeof data !== 'boolean') {
-        return [`Invalid type: ${typeof data} (expected boolean)`];
-    }
-    return [];
-};
+const reGenLiInput = require('./lib/li-input')
+    , validateBoolean = require('./lib/validate-boolean')
+    ;
 
 module.exports = React => {
     const $ = React.createElement;
@@ -26,11 +21,12 @@ module.exports = React => {
                 updateData(spec);
             };
         }
+
         const LiInput = genLiInput({
             schema: schema,
             itype: 'checkbox',
             onChange: onChange,
-            validate: validate
+            validate: validateBoolean
         });
 
         return function Bul (props) {

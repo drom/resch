@@ -1,15 +1,10 @@
 'use strict';
 
-const validateReSchemaErrors = require('./lib/gen-errors');
+const validateReSchemaErrors = require('./lib/gen-errors')
+    , validateEnum = require('./lib/validate-enum')
+    ;
 
-const reSchemaErrors = validateReSchemaErrors(
-    schema => data => {
-        if (!schema.enum.some(e => (e === data))) {
-            return [`No enum match for: ${data}`];
-        }
-        return [];
-    }
-);
+const reSchemaErrors = validateReSchemaErrors(validateEnum);
 
 module.exports = React => {
     const $ = React.createElement;

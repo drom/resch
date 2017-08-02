@@ -1,15 +1,10 @@
 'use strict';
 
-const validateReSchemaErrors = require('./lib/gen-errors');
+const validateReSchemaErrors = require('./lib/gen-errors')
+    , validateNull = require('./lib/validate-null')
+    ;
 
-const reSchemaErrors = validateReSchemaErrors(
-    () => data => {
-        if (data !== null) {
-            return [`Invalid type: ${typeof data} (expected null)`];
-        }
-        return [];
-    }
-);
+const reSchemaErrors = validateReSchemaErrors(validateNull);
 
 module.exports = React => {
     const $ = React.createElement;

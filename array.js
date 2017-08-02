@@ -1,15 +1,10 @@
 'use strict';
 
-const validateReSchemaErrors = require('./lib/gen-errors');
+const validateReSchemaErrors = require('./lib/gen-errors')
+    , validateArray = require('./lib/validate-array')
+    ;
 
-const reSchemaErrors = validateReSchemaErrors(
-    () => data => {
-        if (!Array.isArray(data)) {
-            return [`Invalid type: ${typeof data} (expected array)`];
-        }
-        return [];
-    }
-);
+const reSchemaErrors = validateReSchemaErrors(validateArray);
 
 function getDefaults (schema) {
     if (schema.type === 'string') {
