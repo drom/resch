@@ -3,7 +3,7 @@
 [![appVeyor](https://ci.appveyor.com/api/projects/status/otcvhgxbchj04qfw?svg=true)](https://ci.appveyor.com/project/drom/resch)
 [![Coverage Status](https://coveralls.io/repos/github/drom/resch/badge.svg?branch=master)](https://coveralls.io/github/drom/resch?branch=master)
 
-Creation of UI form from JSON schema description.
+The tool to create React components from JSON schema to edit matching immutable data.
 
 ## Semantics
 
