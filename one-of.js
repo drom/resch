@@ -1,15 +1,12 @@
 'use strict';
 
 const defaultsDeep = require('lodash.defaultsdeep')
-    , Ajv = require('ajv')
     ;
 
-const ajv = new Ajv({allErrors: true});
-
-module.exports = React => {
+module.exports = validator => React => {
     const $ = React.createElement;
 
-    return genForm => { /* eslint no-unused-vars: 1 */
+    return genForm => {
 
         return config => {
 
@@ -31,7 +28,7 @@ module.exports = React => {
 
             const children = schemas.map(schema => {
                 return {
-                    validator: ajv.compile(schema),
+                    validator: validator(schema),
                     fn: genForm({
                         schema: schema,
                         path: path,

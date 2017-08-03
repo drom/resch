@@ -34,7 +34,8 @@ const genForm = reGenForm(React)({
     null: reGenNull,
     number: reGenNumber,
     object: reGenObject,
-    oneOf: reGenOneOf,
+    oneOf: reGenOneOf(schema => data =>
+        (schema.properties.kind.enum[0] === data.kind)),
     string: reGenString
 });
 
