@@ -33,6 +33,7 @@ describe('basic', function () {
         anyOf: reGenAnyOf,
         boolean: reGenBoolean,
         enum: reGenEnum,
+        enum_label: reGenEnum,
         integer: reGenInteger,
         null: reGenNull,
         number: reGenNumber,

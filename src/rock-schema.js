@@ -12,7 +12,7 @@ const group = {
     // type: 'object',
     title: 'Group',
     properties: {
-        kind: { enum: ['group'] },
+        kind: { enum: ['group'], widget: 'label' },
         members: {
             type: 'array', title: 'Band members',
             items: {
