@@ -1,21 +1,18 @@
 'use strict';
 
 const person = {
-    type: 'object', title: 'Person',
+    // type: 'object',
+    title: 'Person',
     properties: {
-        name: {
-            type: 'string', title: 'Real name'
-        }
+        kind: { enum: ['person'] }
     }
 };
 
 const group = {
-    type: 'object', title: 'Group',
+    // type: 'object',
+    title: 'Group',
     properties: {
-        name: {
-            type: 'string', title: 'Group name',
-            minLength: 2, maxLength: 42
-        },
+        kind: { enum: ['group'] },
         members: {
             type: 'array', title: 'Band members',
             items: {
@@ -70,10 +67,16 @@ module.exports = {
             type: 'null', title: 'Country'
         },
         artist: {
-            type: 'array', title: 'Artist',
+            type: 'array', title: 'Artists',
             items: {
                 type: 'object',
-                oneOf: [person, group]
+                oneOf: [person, group],
+                properties: {
+                    name: {
+                        type: 'string', title: 'Name',
+                        minLength: 2, maxLength: 42
+                    }
+                }
             }
         }
     }

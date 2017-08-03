@@ -8,6 +8,11 @@ module.exports = {
     contry: 'UK',
     artist: [
         {
+            kind: 'person',
+            name: 'Paul McCartney'
+        },
+        {
+            kind: 'group',
             name: 'The Beatles',
             members: [
                 { first: 'John', last: 'Lennon', tools: ['Rhythm guitar'], gender: 'M' },
@@ -15,6 +20,10 @@ module.exports = {
                 { first: 'George', last: 'Harrison', tools: ['Lead guitar'], alive: false },
                 { first: 'Ringo', last: 'Starr', tools: ['Drums'], alive: true }
             ]
+        },
+        {
+            kind: 'person',
+            name: 'John Lennon'
         }
     ]
 };

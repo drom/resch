@@ -14,7 +14,8 @@ module.exports = React => {
         function propReducer (config) {
             const schema = config.schema
                 , path = config.path
-                , updateData = config.updateData;
+                , updateData = config.updateData
+                ;
 
             const obj = schema.properties;
             const keys = Object.keys(obj);

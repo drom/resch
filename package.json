@@ -37,5 +37,9 @@
     "nyc": "^11.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
+  },
+  "dependencies": {
+    "ajv": "^5.2.2",
+    "lodash.defaultsdeep": "^4.6.0"
   }
 }
