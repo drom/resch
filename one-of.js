@@ -40,8 +40,8 @@ module.exports = validator => React => {
             function OneOfSw (props) {
                 return $('div', {},
                     children.map((e, i) => (
-                        e.validator(props)
-                            ? $(e.fn, { key: i, data: props })
+                        e.validator(props.data)
+                            ? $(e.fn, Object.assign({ key: i }, props))
                             : null
                     ))
                 );
@@ -61,8 +61,7 @@ module.exports = validator => React => {
                 }
 
                 render () {
-                    const data = this.props.data;
-                    return $(OneOfSw, data);
+                    return $(OneOfSw, this.props);
                 }
             };
         };
