@@ -48,19 +48,18 @@ describe('basic', function () {
         constructor(props) {
             super(props);
             this.state = { data: props.data };
-            this.updateData = this.updateData.bind(this);
+            this.updateState = this.updateState.bind(this);
 
             this.Form = genForm({
                 schema: rockSchema,
                 path: [],
-                updateData: this.updateData
+                updateState: this.updateState
             });
         }
 
-        updateData (spec) {
+        updateState (spec) {
             this.setState(function (state) {
-                state.data = update(state.data, spec);
-                return state;
+                return update(state, spec);
             });
         }
 

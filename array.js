@@ -39,7 +39,7 @@ module.exports = React => {
         function genItemizer (config) {
             const schema = config.schema
                 , path = config.path
-                , updateData = config.updateData;
+                , updateState = config.updateState;
 
             let arr = [];
 
@@ -49,20 +49,21 @@ module.exports = React => {
                         const selfPath = path.concat([index]);
 
                         let handleDelete;
-                        if (typeof updateData === 'function') {
+                        if (typeof updateState === 'function') {
                             const selfBody = { $splice: [[index, 1]] };
-                            const selfSpec = path.reduceRight(
-                                (prev, key) => ({ [key]: prev }), selfBody);
+                            const selfSpec = {
+                                data: path.reduceRight((prev, key) => ({ [key]: prev }), selfBody)
+                            };
 
                             handleDelete = function () {
-                                updateData(selfSpec);
+                                updateState(selfSpec);
                             };
                         }
 
                         const Form = genForm({
                             schema: schema.items,
                             path: selfPath,
-                            updateData: updateData
+                            updateState: updateState
                         });
 
                         arr[index] = function Ari (props) {
@@ -85,16 +86,17 @@ module.exports = React => {
             const itemizer = genItemizer(config);
             const schema = config.schema
                 , path = config.path
-                , updateData = config.updateData;
+                , updateState = config.updateState;
             const Errors = schemaErrors(schema);
 
             let handleAdd;
-            if (typeof updateData === 'function') {
+            if (typeof updateState === 'function') {
                 const arrayBody = { $push: [getDefaults(schema.items)] };
-                const arraySpec = path.reduceRight(
-                    (prev, key) => ({ [key]: prev }), arrayBody);
+                const arraySpec = {
+                    data: path.reduceRight((prev, key) => ({ [key]: prev }), arrayBody)
+                };
                 handleAdd = function  () {
-                    updateData(arraySpec);
+                    updateState(arraySpec);
                 };
             }
 

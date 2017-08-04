@@ -19,26 +19,16 @@ module.exports = validator => React => {
 
             const schema = config.schema
                 , path = config.path
-                , updateData = config.updateData
                 ;
 
             const schemas = schema.oneOf.map(e => {
-
-                // console.log(schema); /* eslint no-console: 1 */
-
                 const c1 = Object.keys(schema).reduce((res, gKey) => {
                     if (gKey !== 'oneOf') {
                         res[gKey] = cloneDeep(schema[gKey]);
                     }
                     return res;
                 }, {});
-
                 mergeWith(c1, e, customizer);
-
-                console.log(c1); /* eslint no-console: 1 */
-
-                // console.log(c1); /* eslint no-console: 1 */
-
                 return c1;
             });
 
@@ -50,7 +40,7 @@ module.exports = validator => React => {
                     fn: genForm({
                         schema: schema,
                         path: path,
-                        updateData: updateData
+                        updateState: config.updateState
                     })
                 };
             });
