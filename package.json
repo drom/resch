@@ -40,6 +40,9 @@
   },
   "dependencies": {
     "ajv": "^5.2.2",
-    "lodash.defaultsdeep": "^4.6.0"
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.defaultsdeep": "^4.6.0",
+    "lodash.merge": "^4.6.0",
+    "lodash.mergewith": "^4.6.0"
   }
 }

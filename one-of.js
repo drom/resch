@@ -1,7 +1,14 @@
 'use strict';
 
-const defaultsDeep = require('lodash.defaultsdeep')
+const cloneDeep = require('lodash.clonedeep')
+    , mergeWith = require('lodash.mergewith')
     ;
+
+function customizer (objValue, srcValue) {
+    if (Array.isArray(objValue)) {
+        return objValue.concat(srcValue);
+    }
+}
 
 module.exports = validator => React => {
     const $ = React.createElement;
@@ -16,12 +23,23 @@ module.exports = validator => React => {
                 ;
 
             const schemas = schema.oneOf.map(e => {
-                Object.keys(schema).forEach(gKey => {
+
+                // console.log(schema); /* eslint no-console: 1 */
+
+                const c1 = Object.keys(schema).reduce((res, gKey) => {
                     if (gKey !== 'oneOf') {
-                        defaultsDeep(e, { [gKey]: schema[gKey] });
+                        res[gKey] = cloneDeep(schema[gKey]);
                     }
-                });
-                return e;
+                    return res;
+                }, {});
+
+                mergeWith(c1, e, customizer);
+
+                console.log(c1); /* eslint no-console: 1 */
+
+                // console.log(c1); /* eslint no-console: 1 */
+
+                return c1;
             });
 
             //console.log(schemas); /* eslint no-console: 1 */
