@@ -25,6 +25,8 @@ module.exports = React => {
         const LiInput = genLiInput({
             schema: schema,
             itype: 'number',
+            min: schema.minimum,
+            max: schema.maximum,
             onChange: onChange,
             validate: validateNumeric
         });
