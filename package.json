@@ -2,7 +2,7 @@
   "name": "resch",
   "version": "0.6.0",
   "description": "Reactive JSON Schema form generator",
-  "main": "index.js",
+  "main": "lib/",
   "scripts": {
     "test": "eslint *.js && nyc --reporter=html --reporter=text mocha test",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",

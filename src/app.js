@@ -3,41 +3,20 @@
 const React = require('react')
     , ReactDOM = require('react-dom')
     , update = require('immutability-helper')
-    , reGenForm = require('../form')
-
-    , reGenArray = require('../array')
-    , reGenAllOf = require('../all-of')
-    , reGenAnyOf = require('../any-of')
-    , reGenBoolean = require('../boolean')
-    , reGenEnum = require('../enum')
-    , reGenInteger = require('../integer')
-    , reGenNull = require('../null')
-    , reGenNumber = require('../number')
-    , reGenObject = require('../object')
-    , reGenOneOf = require('../one-of')
-    , reGenString = require('../string')
-
+    , resch = require('../lib/')
     , rockSchema = require('./rock-schema')
     , rockData = require('./rock-data')
     ;
 
 const $ = React.createElement;
 
-const genForm = reGenForm(React)({
-    array: reGenArray,
-    allOf: reGenAllOf,
-    anyOf: reGenAnyOf,
-    boolean: reGenBoolean,
-    enum: reGenEnum,
-    enum_label: reGenEnum,
-    integer: reGenInteger,
-    null: reGenNull,
-    number: reGenNumber,
-    object: reGenObject,
-    oneOf: reGenOneOf(schema => data =>
-        (schema.properties.kind.enum[0] === data.kind)),
-    string: reGenString
-});
+const desc = Object.assign({}, resch);
+
+desc.oneOf = resch.__oneOf(schema => data =>
+    (schema.properties.kind.enum[0] === data.kind)
+);
+
+const genForm = resch.__form(React)(desc);
 
 class App extends React.Component {
 
