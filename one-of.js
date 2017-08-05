@@ -2,6 +2,7 @@
 
 const cloneDeep = require('lodash.clonedeep')
     , mergeWith = require('lodash.mergewith')
+    , getDefaults = require('./lib/get-defaults')
     ;
 
 function customizer (objValue, srcValue) {
@@ -19,6 +20,7 @@ module.exports = validator => React => {
 
             const schema = config.schema
                 , path = config.path
+                , updateState = config.updateState
                 ;
 
             const schemas = schema.oneOf.map(e => {
@@ -36,6 +38,7 @@ module.exports = validator => React => {
 
             const children = schemas.map(schema => {
                 return {
+                    schema: schema,
                     validator: validator(schema),
                     fn: genForm({
                         schema: schema,
@@ -45,14 +48,19 @@ module.exports = validator => React => {
                 };
             });
 
-            function OneOfSw (props) {
-                return $('div', {},
-                    children.map((e, i) => (
-                        e.validator(props.data)
-                            ? $(e.fn, Object.assign({ key: i }, props))
-                            : null
-                    ))
-                );
+            let onChange;
+            if (typeof updateState === 'function') {
+                const body = { $set: '' };
+                const spec = {
+                    data: path.reduceRight((p, k) => ({ [k]: p }), body)
+                };
+                onChange = function (event) {
+                    const key = event.target.value;
+                    const schema = schemas[key];
+                    const defaults = getDefaults(schema);
+                    body.$set = defaults;
+                    updateState(spec);
+                };
             }
 
             return class OneOf extends React.Component {
@@ -69,7 +77,23 @@ module.exports = validator => React => {
                 }
 
                 render () {
-                    return $(OneOfSw, this.props);
+                    const props = this.props;
+                    return $('div', {},
+                        children.map((e, i) => (
+                            e.validator(props.data)
+                                ? $(e.fn, Object.assign({ key: i }, props))
+                                : null
+                        )),
+                        children.some(e => e.validator(props.data))
+                            ? null
+                            : $('select', { onChange: onChange, value: '---' },
+                                $('option', { disabled: true, value: '---' }, '---'),
+                                children.map((e, i) => $('option',
+                                    { key: i, value: i },
+                                    e.schema.title
+                                ))
+                            )
+                    );
                 }
             };
         };

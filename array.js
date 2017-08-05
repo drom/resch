@@ -2,34 +2,10 @@
 
 const validateReSchemaErrors = require('./lib/gen-errors')
     , validateArray = require('./lib/validate-array')
+    , getDefaults = require('./lib/get-defaults')
     ;
 
 const reSchemaErrors = validateReSchemaErrors(validateArray);
-
-function getDefaults (schema) {
-    if (schema.allOf !== undefined) { return ''; }
-    if (schema.anyOf !== undefined) { return ''; }
-    if (schema.oneOf !== undefined) { return ''; }
-
-    if (schema.enum !== undefined) { return schema.enum[0]; }
-
-    if (schema.type === 'string') {
-        // TODO check for default, minLength, pattern?
-        return '';
-    }
-    if (schema.type === 'object') {
-        const props = schema.properties;
-        const keys = Object.keys(props);
-        return keys.reduce((res, key) => Object.assign(res, {
-            [key]: getDefaults(props[key])
-        }), {});
-    }
-    if (schema.type === 'array') {
-        // TODO check for minimum number of items?
-        return [];
-    }
-    return null;
-}
 
 module.exports = React => {
     const $ = React.createElement;
