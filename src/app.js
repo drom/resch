@@ -22,7 +22,10 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { data: props.data };
+        this.state = {
+            data: props.data,
+            focus: []
+        };
         this.updateState = this.updateState.bind(this);
 
         this.Form = genForm({
@@ -41,7 +44,10 @@ class App extends React.Component {
     render () {
         return (
             $('div', {},
-                $(this.Form, { data: this.state.data })
+                $(this.Form, {
+                    data: this.state.data,
+                    focus: this.state.focus
+                })
             )
         );
     }
