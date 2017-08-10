@@ -24,7 +24,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             data: props.data,
-            focus: []
+            focus: undefined
         };
         this.updateState = this.updateState.bind(this);
 
