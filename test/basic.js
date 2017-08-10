@@ -26,7 +26,10 @@ describe('basic', function () {
 
         constructor(props) {
             super(props);
-            this.state = { data: props.data };
+            this.state = {
+                data: props.data,
+                focus: undefined
+            };
             this.updateState = this.updateState.bind(this);
 
             this.Form = genForm({
@@ -45,7 +48,10 @@ describe('basic', function () {
         render () {
             return (
                 $('div', {},
-                    $(this.Form, { data: this.state.data })
+                    $(this.Form, {
+                        data: this.state.data,
+                        focus: this.state.focus
+                    })
                 )
             );
         }
