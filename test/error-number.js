@@ -13,6 +13,34 @@ describe('number errors', () => {
     const desc = Object.assign({}, resch);
     const genForm = resch.__form(React)(desc);
 
+    it('no limits', done => {
+        const Form = genForm({ schema: {
+            type: 'number'
+        }});
+        const res = ReactDOMServer.renderToStaticMarkup($(Form, {
+            data: 42
+        }));
+        expect(res).to.be.a('string');
+        done();
+    });
+
+    [4, 5, 20, 21]
+        .forEach(data => {
+
+            it(`multipleOf: ${data}`, done => {
+                const Form = genForm({ schema: {
+                    type: 'number',
+                    multipleOf: 5
+                }});
+                const res = ReactDOMServer.renderToStaticMarkup($(Form, {
+                    data: data
+                }));
+                expect(res).to.be.a('string');
+                done();
+            });
+
+        });
+
     [5, 10, 15, 20, 25]
         .forEach(data => {
 
