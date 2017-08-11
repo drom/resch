@@ -21,7 +21,7 @@ const expect = chai.expect;
                         type: type
                     }});
                     const res = ReactDOMServer.renderToStaticMarkup($(Form, {
-                        data: null
+                        data: data
                     }));
                     expect(res).to.be.a('string');
                     done();

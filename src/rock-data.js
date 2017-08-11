@@ -18,7 +18,7 @@ module.exports = {
                 { first: 'John', last: 'Lennon', tools: ['Rhythm guitar'], gender: 'M' },
                 { first: 'Paul', last: 'McCartney', tools: ['Bass', 'Piano'], alive: true },
                 { first: 'George', last: 'Harrison', tools: ['Lead guitar'], alive: false },
-                { first: 'Ringo', last: 'Starr', tools: ['Drums'], alive: true }
+                { first: 'Ringo', last: 'Starr', tools: null, alive: true }
             ]
         },
         {
