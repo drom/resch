@@ -16,9 +16,11 @@ describe('basic', function () {
 
     const desc = Object.assign({}, resch);
 
-    desc.oneOf = resch.__oneOf(schema => data =>
-        (schema.properties.kind.enum[0] === data.kind)
-    );
+    desc.oneOf = resch.__oneOf(schema => data => (
+        data &&
+        data.kind &&
+        data.kind === schema.properties.kind.enum[0]
+    ));
 
     const genForm = resch.__form(React)(desc);
 
