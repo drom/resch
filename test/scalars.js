@@ -8,7 +8,7 @@ const React = require('react')
 
 const expect = chai.expect;
 
-[undefined, null, 0, 42, '', '*', {}, []].forEach(data => {
+[undefined, null, 0, 42, '', '*', {}, [], true, false].forEach(data => {
     describe('data: ' + JSON.stringify(data) + ' with type: ', () => {
         const $ = React.createElement;
         const desc = Object.assign({}, resch);
