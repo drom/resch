@@ -46,6 +46,9 @@ const group = {
 module.exports = {
     type: 'object', title: 'Rock',
     properties: {
+        readonly: {
+            type: 'boolean', title: 'readonly'
+        },
         years: {
             type: 'object', title: 'Years',
             properties: {

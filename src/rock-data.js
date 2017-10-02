@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+    readonly: false,
     years: {
         from: 1961,
         to: 1971

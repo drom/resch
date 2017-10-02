@@ -46,7 +46,8 @@ class App extends React.Component {
             $('div', {},
                 $(this.Form, {
                     data: this.state.data,
-                    focus: this.state.focus
+                    focus: this.state.focus,
+                    readonly: this.state.data.readonly
                 })
             )
         );
