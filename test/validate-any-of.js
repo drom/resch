@@ -16,17 +16,17 @@ describe('anyOf errors', () => {
     [{}]
         .forEach(data => {
             it(JSON.stringify(data), done => {
-                const Form = genForm({ schema: { /* eslint quotes: [1, "single"] */
-                    "type": 'object', "title": "obj",
-                    "properties": {
-                        "a": { "title": "a", "enum": [false, true] },
-                        "b": { "title": "b", "enum": [0, 1] },
-                        "c": { "title": "c", "enum": ["a", "b"] }
+                const Form = genForm({ schema: {
+                    type: 'object', title: 'obj',
+                    properties: {
+                        a: { title: 'a', enum: [false, true] },
+                        b: { title: 'b', enum: [0, 1] },
+                        c: { title: 'c', enum: ['a', 'b'] }
                     },
-                    "anyOf": [
-                        { required: ["a"], "properties": { "a": { "enum": [true] }}},
-                        { required: ["b"],"properties": { "b": { "enum": [1] } }},
-                        { required: ["c"],"properties": { "c": { "enum": ["b"] }}}
+                    anyOf: [
+                        { required: ['a'], properties: { a: { enum: [true] }}},
+                        { required: ['b'], properties: { b: { enum: [1] } }},
+                        { required: ['c'], properties: { c: { enum: ['b'] }}}
                     ]
                 }});
                 const res = ReactDOMServer.renderToStaticMarkup($(Form, {

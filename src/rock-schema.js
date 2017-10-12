@@ -12,7 +12,7 @@ const group = {
     // type: 'object',
     title: 'Group',
     properties: {
-        kind: { enum: ['group'], widget: 'label' },
+        kind: { enum: ['group'] },
         members: {
             type: 'array', title: 'Band members',
             items: {
@@ -62,7 +62,7 @@ module.exports = {
                     type: 'number', title: 'To',
                     minimum: 1900,
                     exclusiveMinimum: true,
-                    maximum: 2020,
+                    maximum: 2020
                 }
             }
         },

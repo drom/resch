@@ -13,7 +13,7 @@ describe('array errors', () => {
     const desc = Object.assign({}, resch);
     const genForm = resch.__form(React)(desc);
 
-    [[], [1,2,3], [1,2,3,4,5,6]]
+    [[], [1, 2, 3], [1, 2, 3, 4, 5, 6]]
         .forEach(data => {
             it(JSON.stringify(data), done => {
                 const Form = genForm({ schema: {
