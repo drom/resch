@@ -57,24 +57,31 @@ const m012 = {
             properties: {
                 title: 'properties:',
                 type: 'object',
-                properties: {}
+                additionalProperties: null
             }
         }
     }]
 };
 
-// meta.oneOf[0].properties.properties = meta;
+m012.oneOf[1].properties.properties.additionalProperties = m012;
 
-const t0 = {};
+// const t0 = {};
 
 // const t1 = {
 //     type: 'string'
 // };
-//
+
 // const t2 = {
 //     type: 'object',
 //     properties: {}
 // };
+
+const t3 = {
+    type: 'object',
+    properties: {
+        abc: {type: 'string'}
+    }
+};
 
 
 const $ = React.createElement;
@@ -124,7 +131,7 @@ class App extends React.Component {
 }
 
 ReactDOM.render(
-    $(App, { data: t0 }),
+    $(App, { data: t3 }),
     document.getElementById('root')
 );
 

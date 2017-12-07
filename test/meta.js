@@ -29,13 +29,13 @@ const m012 = {
             properties: {
                 title: 'properties:',
                 type: 'object',
-                properties: {}
+                additionalProperties: null
             }
         }
     }]
 };
 
-// meta.oneOf[0].properties.properties = meta;
+m012.oneOf[1].properties.properties.additionalProperties = m012;
 
 const t0 = {};
 
