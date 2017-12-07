@@ -5,9 +5,11 @@
   "main": "lib/",
   "scripts": {
     "test": "eslint lib/*.js src/*.js && nyc --reporter=html --reporter=text mocha test",
+    "mocha": "mocha test/meta.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "start": "http-server build/",
-    "build": "browserify src/app.js -o build/bundle.js && cp ./node_modules/normalize.css/normalize.css build/"
+    "build": "browserify src/app.js -o build/bundle.js && cp ./node_modules/normalize.css/normalize.css build/",
+    "build2": "browserify src/app2.js -o build/bundle.js && cp ./node_modules/normalize.css/normalize.css build/"
   },
   "repository": {
     "type": "git",
