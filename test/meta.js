@@ -4,6 +4,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const chai = require('chai');
 const resch = require('../lib/');
+const reObjAdditional = require('../lib/object-additional');
 
 const expect = chai.expect;
 
@@ -29,6 +30,7 @@ const m012 = {
             properties: {
                 title: 'properties:',
                 type: 'object',
+                properties: {},
                 additionalProperties: null
             }
         }
@@ -62,6 +64,7 @@ const t2 = {
 describe('meta', () => {
     const $ = React.createElement;
     const desc = Object.assign({}, resch);
+    desc.object = reObjAdditional;
     desc.oneOf = resch.__oneOf(sch => dat =>
         (sch.properties.type.enum[0] === dat.type)
     );
