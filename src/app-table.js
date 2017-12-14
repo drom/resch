@@ -9,27 +9,8 @@ const objectTable = require('../lib/object-table');
 const stringTable = require('../lib/string-table');
 const numberTable = require('../lib/number-table');
 
-const schema = {
-    type: 'array',
-    title: 'table 1',
-    widget: 'table',
-    items: {
-        type: 'object',
-        widget: 'table',
-        properties: {
-            num:   {type: 'number', widget: 'table', title: '#'},
-            first: {type: 'string', widget: 'table', title: 'First Name'},
-            last:  {type: 'string', widget: 'table', title: 'Last Name'},
-            user:  {type: 'string', widget: 'table', title: 'Username'}
-        }
-    }
-};
-
-const data = [
-    {num: 1, first: 'Mark',  last: 'Otto',     user: '@mdo'},
-    {num: 2, first: 'Jacob', last: 'Thornton', user: '@fat'},
-    {num: 3, first: 'Larry', last: 'the Bird', user: '@twitter'}
-];
+const schema = require('../src/table-schema');
+const data = require('../src/table-data');
 
 const $ = React.createElement;
 
