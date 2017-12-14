@@ -3,78 +3,16 @@
 const React = require('react')
     , ReactDOM = require('react-dom')
     , update = require('immutability-helper')
+    , reObjectAdditional = require('../lib/object-additional')
     , resch = require('../lib/')
-    // , rockSchema = require('./rock-schema')
-    // , rockData = require('./rock-data')
+    , rockSchema = require('./default-schema')
     ;
 
-// const m1 = {
-//     type: 'object',
-//     properties: {
-//         type: {
-//             title: 'type:',
-//             type: 'string',
-//             enum: ['string']
-//         }
-//     }
-// };
-//
-// const m2 = {
-//     type: 'object',
-//     properties: {
-//         type: {
-//             title: 'type:',
-//             type: 'string',
-//             enum: ['object']
-//         },
-//         properties: {
-//             title: 'properties:',
-//             type: 'object',
-//             properties: {}
-//         }
-//     }
-// };
-
-const m012 = {
-    type: 'object',
-    oneOf:[{
-        title: 'string',
-        properties: {
-            type: {
-                title: 'type:',
-                type: 'string',
-                enum: ['string']
-            }
-        }
-    }, {
-        title: 'object',
-        properties: {
-            type: {
-                title: 'type:',
-                type: 'string',
-                enum: ['object']
-            },
-            properties: {
-                title: 'properties:',
-                type: 'object',
-                additionalProperties: null
-            }
-        }
-    }]
-};
-
-m012.oneOf[1].properties.properties.additionalProperties = m012;
-
-// const t0 = {};
-
-// const t1 = {
-//     type: 'string'
-// };
-
-// const t2 = {
-//     type: 'object',
-//     properties: {}
-// };
+update.extend('$auto', function(value, object) {
+    return object ?
+        update(object, value):
+        update({}, value);
+});
 
 const t3 = {
     type: 'object',
@@ -87,9 +25,10 @@ const t3 = {
 const $ = React.createElement;
 
 const desc = Object.assign({}, resch);
+desc.object = reObjectAdditional;
 
 desc.oneOf = resch.__oneOf(schema => data =>
-    (schema.properties.type.enum[0] === data.type)
+    (data && schema.properties.type.enum[0] === data.type)
 );
 
 const genForm = resch.__form(React)(desc);
@@ -105,7 +44,7 @@ class App extends React.Component {
         this.updateState = this.updateState.bind(this);
 
         this.Form = genForm({
-            schema: m012,
+            schema: rockSchema,
             path: [],
             updateState: this.updateState
         });
