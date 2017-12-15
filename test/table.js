@@ -10,6 +10,7 @@ const arrayTable = require('../lib/array-table');
 const objectTable = require('../lib/object-table');
 const stringTable = require('../lib/string-table');
 const numberTable = require('../lib/number-table');
+const enumTable = require('../lib/enum-table');
 
 const schema = require('../src/table-schema');
 const data = require('../src/table-data');
@@ -23,7 +24,8 @@ describe('basic', function () {
         'array_table': arrayTable,
         'object_table': objectTable,
         'string_table': stringTable,
-        'number_table': numberTable
+        'number_table': numberTable,
+        'enum_table': enumTable
     }, resch);
 
     desc.oneOf = resch.__oneOf(schema => data => (
@@ -40,7 +42,8 @@ describe('basic', function () {
             super(props);
             this.state = {
                 data: props.data,
-                focus: undefined
+                focus: undefined,
+                readony: props.readonly
             };
             this.updateState = this.updateState.bind(this);
 
@@ -62,7 +65,8 @@ describe('basic', function () {
                 $('div', {},
                     $(this.Form, {
                         data: this.state.data,
-                        focus: this.state.focus
+                        focus: this.state.focus,
+                        readonly: this.state.readonly
                     })
                 )
             );
@@ -71,6 +75,12 @@ describe('basic', function () {
 
     it('t1', function (done) {
         const res = ReactDOMServer.renderToStaticMarkup($(App, { data: data }));
+        expect(res).to.be.a('string');
+        done();
+    });
+
+    it('t2', function (done) {
+        const res = ReactDOMServer.renderToStaticMarkup($(App, { data: data, readonly: true }));
         expect(res).to.be.a('string');
         done();
     });

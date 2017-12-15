@@ -30,7 +30,8 @@ describe('basic', function () {
             super(props);
             this.state = {
                 data: props.data,
-                focus: undefined
+                focus: undefined,
+                readonly: props.readonly
             };
             this.updateState = this.updateState.bind(this);
 
@@ -52,7 +53,8 @@ describe('basic', function () {
                 $('div', {},
                     $(this.Form, {
                         data: this.state.data,
-                        focus: this.state.focus
+                        focus: this.state.focus,
+                        readonly: this.state.readonly
                     })
                 )
             );
@@ -61,6 +63,12 @@ describe('basic', function () {
 
     it('t1', function (done) {
         const res = ReactDOMServer.renderToStaticMarkup($(App, { data: rockData }));
+        expect(res).to.be.a('string');
+        done();
+    });
+
+    it('t2', function (done) {
+        const res = ReactDOMServer.renderToStaticMarkup($(App, { data: rockData, readonly: true}));
         expect(res).to.be.a('string');
         done();
     });
