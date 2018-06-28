@@ -10,6 +10,7 @@
     "start": "http-server build/",
     "build": "browserify src/app.js -o build/bundle.js && cp ./node_modules/normalize.css/normalize.css build/",
     "build2": "browserify src/app2.js -o build/bundle.js && cp ./node_modules/normalize.css/normalize.css build/",
+    "build-zoo": "browserify src/app-zoo.js -o build/bundle.js && cp ./node_modules/normalize.css/normalize.css build/",
     "build-table": "browserify src/app-table.js -o build/bundle.js && cp ./node_modules/normalize.css/normalize.css build/"
   },
   "repository": {
