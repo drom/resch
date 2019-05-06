@@ -16,6 +16,7 @@
     "prepublish": "npm run test && mkdir -p umd && npm run umd"
   },
   "files": [
+    "lib",
     "umd/resch.js"
   ],
   "unpkg": "umd/resch.js",
