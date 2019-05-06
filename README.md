@@ -2,6 +2,7 @@
 [![Travis](https://travis-ci.org/drom/resch.svg?branch=master)](https://travis-ci.org/drom/resch)
 [![Coverage Status](https://coveralls.io/repos/github/drom/resch/badge.svg?branch=master)](https://coveralls.io/github/drom/resch?branch=master)
 [![dependencies Status](https://david-dm.org/drom/resch/status.svg)](https://david-dm.org/drom/resch)
+[![devDependencies Status](https://david-dm.org/drom/resch/dev-status.svg)](https://david-dm.org/drom/resch?type=dev)
 
 The tool to create React components from JSON schema to edit matching immutable data.
 
