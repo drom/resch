@@ -8,6 +8,7 @@ const arrayTable = require('../lib/array-table');
 const objectTable = require('../lib/object-table');
 const stringTable = require('../lib/string-table');
 const numberTable = require('../lib/number-table');
+const enumTable = require('../lib/enum-table');
 
 const schema = require('../src/table-schema');
 const data = require('../src/table-data');
@@ -18,7 +19,8 @@ const desc = Object.assign({
     'array_table': arrayTable,
     'object_table': objectTable,
     'string_table': stringTable,
-    'number_table': numberTable
+    'number_table': numberTable,
+    'enum_table': enumTable
 }, resch);
 
 desc.oneOf = resch.__oneOf(schema => data =>
