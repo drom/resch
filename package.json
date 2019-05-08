@@ -4,7 +4,7 @@
   "description": "Reactive JSON Schema form generator",
   "main": "lib/",
   "scripts": {
-    "test": "eslint lib/*.js src/*.js && nyc --reporter=html --reporter=text mocha test",
+    "test": "eslint lib/*.js src/*.js && nyc -r=text -r=lcov mocha test",
     "mocha": "mocha test/meta.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "start": "http-server build/",
