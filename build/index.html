@@ -10,24 +10,32 @@
         font-size: 16px;
       }
       ul, ol {
-          background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(0, 0, 0, 0.05);
       }
-      .blk {
-          display: inline-block;
-          height: 24px;
-          margin: 3px;
+      ol li:before {
+        content: none;
+      }
+      .title {
+        display: inline-block;
+        padding: 0px 4px;
+      }
+      .value {
+        background-color: #ffa;
+        padding: 0px 4px;
       }
       input {
-        width: 100%;
+        padding: 0px 4px;
         border-left: none;
         border-right: none;
         border-top: none;
-        border-bottom: solid lightgrey;
+        border-bottom: solid #555;
       }
+      input[type=text] {width: 200px;}
       input:focus {
         background: #aef;
         outline: none;
       }
+      .error {color: red;}
     </style>
   </head>
   <body>
