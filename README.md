@@ -1,8 +1,6 @@
 [![NPM version](https://img.shields.io/npm/v/resch.svg)](https://www.npmjs.org/package/resch)
 [![Actions Status](https://github.com/drom/resch/workflows/Tests/badge.svg)](https://github.com/drom/resch/actions)
 [![Coverage Status](https://coveralls.io/repos/github/drom/resch/badge.svg?branch=master)](https://coveralls.io/github/drom/resch?branch=master)
-[![dependencies Status](https://david-dm.org/drom/resch/status.svg)](https://david-dm.org/drom/resch)
-[![devDependencies Status](https://david-dm.org/drom/resch/dev-status.svg)](https://david-dm.org/drom/resch?type=dev)
 
 The tool to create React components from JSON schema to edit matching immutable data.
 
@@ -106,7 +104,7 @@ class App extends React.Component {
 In constructor state with `data` property should be defined. `data` is an immutable objects holding all data for JSON Schema <br/>
 Here you should also generate all your React Forms using predefined function `genForm`, in order not to have problems with losing focus. This function recursively generates React Forms by using schema, and expects to receive `configs` which is an object containing `schema` (JSON schema), `updateState` (function allowing leafs to update state data), `path` (helper to generate `spec` for `updateState`)
 
-```js    
+```js
 
     updateState (spec) {
         this.setState(function (state) {
